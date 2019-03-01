@@ -1,0 +1,47 @@
+<form class="w-25">
+  <%= form_with model: @client, local: true do |f| %>
+    <% if @client.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@client.errors.count, "error") %>
+        prohibited
+          this client from being saved:
+        </h2>
+        <ul>
+          <% @client.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li> 
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class='form-group'>
+      <%= f.label :dni %><br>
+      <%= f.number_field :dni, autofocus: true, class: 'form-control', required: true %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :full_name %><br>
+      <%= f.text_field :full_name, class: 'form-control', required: true %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :address %><br>
+      <%= f.text_field :address, class: 'form-control', required: true %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :nacionality %><br>
+      <%= f.text_field :nacionality, class: 'form-control', required: true %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :birthdate %><br>
+      <%= f.date_field :birthdate, class: 'form-control', required: true %>
+    </div>
+
+    <%= f.submit 'Submit', class: 'btn btn-success' %>
+    <%= link_to 'Back', clients_path, class: 'btn btn-secondary btn-sm' %>
+
+  <% end %>
+</form>

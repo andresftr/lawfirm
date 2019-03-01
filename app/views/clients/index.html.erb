@@ -1,0 +1,32 @@
+<a class="btn btn-outline-dark" href="/welcome/index" role="button">Home</a>
+
+<h2>Listing Clients</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Dni</th>
+      <th>Full Name</th>
+      <th>Address</th>
+      <th>Nacionality</th>
+      <th>Birthdate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr>
+        <td><%= client.dni %></td>
+        <td><%= client.full_name %></td>
+        <td><%= client.address %></td>
+        <td><%= client.nacionality %></td>
+        <td><%= client.birthdate %></td>
+        <td><%= link_to 'Show', client_path(client), class: 'btn btn-outline-info' %></td>
+        <td><%= link_to 'Edit', edit_client_path(client), class: 'btn btn-outline-secondary' %></td>
+        <td><%= link_to 'Destroy', client_path(client),
+                method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New client', new_client_path, class: 'btn btn-outline-primary' %>

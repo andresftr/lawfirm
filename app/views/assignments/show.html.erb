@@ -1,0 +1,15 @@
+<h2>Assignment</h2>
+<div class="border border-info p-1 mb-2 w-75">
+  <p>
+    <strong>Affair:</strong>
+    <%= link_to @assignment.affair.file_number, affair_path(@assignment.affair), class: 'badge badge-info' %>
+  </p>
+
+  <p>
+    <strong>Attorney:</strong>
+    <%= link_to @assignment.attorney.full_name, attorney_path(@assignment.attorney), class: 'badge badge-info' %>
+  </p>
+</div>
+
+<%= link_to 'Edit', edit_assignment_path(@assignment), class: 'btn btn-success' %> 
+<%= link_to 'Back', assignments_path, class: 'btn btn-secondary btn-sm' %>

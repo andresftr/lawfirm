@@ -1,0 +1,43 @@
+<h2>Affairs</h2>
+<div class="border border-info p-1 w-75">
+  <div>
+    <strong>File Number:</strong>
+    <%= @affair.file_number %>
+  </div>
+
+  <div>
+    <strong>Client:</strong>
+    <%= link_to @affair.client.full_name, client_path(@affair.client), class: 'badge badge-info' %>
+  </div>
+
+  <div>
+    <strong>Start date:</strong>
+    <%= @affair.start_date %>
+  </div>
+
+  <div>
+    <strong>Finish date:</strong>
+    <%= @affair.finish_date %>
+  </div>
+
+  <div>
+    <strong>Status:</strong>
+    <%= @affair.status %>
+  </div>
+</div>
+
+<div class="container m-3">
+  <h3>Attorneys of this affair</h3>
+
+  <% @assignments = Assignment.all %>
+  <div class="list-group w-50">
+    <% @assignments.each do |assignment| %>
+      <% if assignment.affair_id == @affair.id %>
+        <%= link_to assignment.attorney.full_name, attorney_path(assignment.attorney), class: 'list-group-item list-group-item-action' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_affair_path(@affair), class: 'btn btn-success' %> 
+<%= link_to 'Back', affairs_path, class: 'btn btn-secondary btn-sm' %>

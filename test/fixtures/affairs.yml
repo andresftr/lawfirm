@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  file_number: MyString
+  start_date: 2019-02-28
+  finish_date: 2019-02-28
+  status: MyString
+  client: one
+
+two:
+  file_number: MyString
+  start_date: 2019-02-28
+  finish_date: 2019-02-28
+  status: MyString
+  client: two

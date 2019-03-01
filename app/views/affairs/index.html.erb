@@ -1,0 +1,32 @@
+<a class="btn btn-outline-dark" href="/welcome/index" role="button">Home</a>
+
+<h2>Listing Affairs</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>File number</th>
+      <th>Client</th>
+      <th>Start date</th>
+      <th>Finish date</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @affairs.each do |affair| %>
+      <tr>
+        <td><%= affair.file_number %></td>
+        <td><%= affair.client.full_name %></td>
+        <td><%= affair.start_date %></td>
+        <td><%= affair.finish_date %></td>
+        <td><%= affair.status %></td>
+        <td><%= link_to 'Show', affair_path(affair), class: 'btn btn-outline-info' %></td>
+        <td><%= link_to 'Edit', edit_affair_path(affair), class: 'btn btn-outline-secondary' %></td>
+        <td><%= link_to 'Destroy', affair_path(affair),
+                method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New affair', new_affair_path, class: 'btn btn-outline-primary' %>

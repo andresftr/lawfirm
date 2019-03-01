@@ -1,0 +1,43 @@
+<h2>Client</h2>
+<div class="border border-info p-1 w-75">
+  <div>
+    <strong>Dni:</strong>
+    <%= @client.dni %>
+  </div>
+
+  <div>
+    <strong>Full name:</strong>
+    <%= @client.full_name %>
+  </div>
+
+  <div>
+    <strong>Address:</strong>
+    <%= @client.address %>
+  </div>
+
+  <div>
+    <strong>Nacionality:</strong>
+    <%= @client.nacionality %>
+  </div>
+
+  <div>
+    <strong>Birthdate:</strong>
+    <%= @client.birthdate %>
+  </div>
+</div>
+
+<div class="container m-3">
+  <h3>Affairs of this client</h3>
+
+  <% @affairs = Affair.all %>
+  <div class="list-group w-50">
+    <% @affairs.each do |affair| %>
+      <% if affair.client_id == @client.id %>
+        <%= link_to affair.file_number, affair_path(affair), class: 'list-group-item list-group-item-action' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-success' %> 
+<%= link_to 'Back', clients_path, class: 'btn btn-secondary btn-sm' %>

@@ -1,0 +1,47 @@
+<form class="w-25">
+  <%= form_with model: @affair, local: true do |f| %>
+    <% if @affair.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@affair.errors.count, "error") %>
+        prohibited
+          this affair from being saved:
+        </h2>
+        <ul>
+          <% @affair.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li> 
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :file_number %><br>
+      <%= f.text_field :file_number, autofocus: true, required: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :client %><br>
+      <%= f.collection_select(:client_id, Client.all, :id, :full_name, {prompt: true}, {class: "form-control"}) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :start_date %><br>
+      <%= f.date_field :start_date, :required => true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :finish_date %><br>
+      <%= f.date_field :finish_date, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :status %><br>
+      <%= f.text_field :status, :required => true, class: "form-control" %>
+    </div>
+
+    <%= f.submit 'Submit', class: 'btn btn-success' %>
+    <%= link_to 'Back', affairs_path, class: 'btn btn-secondary btn-sm' %>
+
+    <% end %>
+</form>

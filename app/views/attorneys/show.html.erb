@@ -1,0 +1,38 @@
+<h2>Attorney</h2>
+<div class="border border-info p-1 w-75">
+  <div>
+    <strong>Dni:</strong>
+    <%= @attorney.dni %>
+  </div>
+
+  <div>
+    <strong>Full name:</strong>
+    <%= @attorney.full_name %>
+  </div>
+
+  <div>
+    <strong>Address:</strong>
+    <%= @attorney.address %>
+  </div>
+
+  <div>
+    <strong>Nacionality:</strong>
+    <%= @attorney.nacionality %>
+  </div>
+</div>
+
+<div class="container m-3">
+  <h3>Affairs of this attorney</h3>
+
+  <% @assignments = Assignment.all %>
+  <div class="list-group w-50">
+    <% @assignments.each do |assignment| %>
+      <% if assignment.attorney_id == @attorney.id %>
+        <%= link_to assignment.affair.file_number, affair_path(assignment.affair), class: 'list-group-item list-group-item-action' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_attorney_path(@attorney), class: 'btn btn-success' %> 
+<%= link_to 'Back', attorneys_path, class: 'btn btn-secondary btn-sm' %>

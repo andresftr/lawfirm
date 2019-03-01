@@ -1,0 +1,30 @@
+<a class="btn btn-outline-dark" href="/welcome/index" role="button">Home</a>
+
+<h2>Listing Attorneys</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Dni</th>
+      <th>Full Name</th>
+      <th>Address</th>
+      <th>Nacionality</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attorneys.each do |attorney| %>
+      <tr>
+        <td><%= attorney.dni %></td>
+        <td><%= attorney.full_name %></td>
+        <td><%= attorney.address %></td>
+        <td><%= attorney.nacionality %></td>
+        <td><%= link_to 'Show', attorney_path(attorney), class: 'btn btn-outline-info' %></td>
+        <td><%= link_to 'Edit', edit_attorney_path(attorney), class: 'btn btn-outline-secondary' %></td>
+        <td><%= link_to 'Destroy', attorney_path(attorney),
+                method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New attorney', new_attorney_path, class: 'btn btn-outline-primary' %>

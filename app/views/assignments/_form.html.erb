@@ -1,0 +1,32 @@
+<form class="w-25">
+  <%= form_with model: @assignment, local: true do |f| %>
+    <% if @assignment.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@assignment.errors.count, "error") %>
+        prohibited
+          this assignment from being saved:
+        </h2>
+        <ul>
+          <% @assignment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li> 
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :affair %><br>
+      <%= f.collection_select(:affair_id, Affair.all, :id, :file_number, {prompt: true}, {class: "form-control"}) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :assignment %><br>
+      <%= f.collection_select(:attorney_id, Attorney.all, :id, :full_name, {prompt: true}, {class: "form-control"}) %>
+    </div>
+
+    <%= f.submit 'Submit', class: 'btn btn-success' %>
+    <%= link_to 'Back', assignments_path, class: 'btn btn-secondary btn-sm' %>
+
+  <% end %>
+</form>
