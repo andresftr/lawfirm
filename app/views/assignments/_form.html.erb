@@ -1,4 +1,4 @@
-<form class="w-25">
+<div class="container w-25">
   <%= form_with model: @assignment, local: true do |f| %>
     <% if @assignment.errors.any? %>
       <div id="error_explanation">
@@ -29,4 +29,4 @@
     <%= link_to 'Back', assignments_path, class: 'btn btn-secondary btn-sm' %>
 
   <% end %>
-</form>
+</div>

@@ -1,4 +1,4 @@
-<form class="w-25">
+<div class="container w-25">
   <%= form_with model: @client, local: true do |f| %>
     <% if @client.errors.any? %>
       <div id="error_explanation">
@@ -44,4 +44,4 @@
     <%= link_to 'Back', clients_path, class: 'btn btn-secondary btn-sm' %>
 
   <% end %>
-</form>
+</div>
