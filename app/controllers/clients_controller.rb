@@ -20,8 +20,10 @@ class ClientsController < ApplicationController
 
     if @client.save
       redirect_to @client
+      flash[:notice] = "Client successfully created"
     else
       render 'new'
+      flash[:alert] = "Client could not be created"
     end
   end
 
@@ -30,16 +32,23 @@ class ClientsController < ApplicationController
 
     if @client.update(client_params)
       redirect_to @client
+      flash[:notice] = "Client successfully updated"
     else
       render 'edit'
+      flash[:alert] = "Client could not be updated"
     end
   end
 
   def destroy
     @client = Client.find(params[:id])
-    @client.destroy
 
-    redirect_to clients_path
+    if @client.destroy
+      redirect_to clients_path
+      flash[:error] = "Client successfully destroyed"
+    else
+      render 'index'
+      flash[:alert] = "Client could not be destroyed"
+    end
   end
 
   private

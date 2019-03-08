@@ -28,8 +28,9 @@
       <% end %>
     </ul>
     <div class = "container p-3">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% flash.each do |key, value| %>
+        <div class="<%= flash_class(key) %>"><%= value %></div>
+      <% end %>
       <%= yield %>
     </div>
   </body>

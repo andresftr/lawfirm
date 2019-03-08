@@ -1,4 +1,4 @@
-<div class="container w-25">
+<div class="container w-50">
   <%= form_with model: @attorney, local: true do |f| %>
     <% if @attorney.errors.any? %>
       <div id="error_explanation">
@@ -35,8 +35,16 @@
       <%= f.text_field :nacionality, class: 'form-control', required: true %>
     </div>
 
-    <%= f.submit 'Submit', class: 'btn btn-success' %>
-    <%= link_to 'Back', attorneys_path, class: 'btn btn-secondary btn-sm' %>
+    <%= f.fields_for :assignments do |f| %>
+      <%= render 'assignment_fields', f: f %>
+    <% end %>
+
+    <%= link_to_add_fields('Add an Assignment', f, :assignments, nil, class: 'btn btn-primary') %><br>
+
+    <div class="d-flex justify-content-end">
+      <%= f.submit 'Submit', class: 'btn btn-success m-1' %>
+      <%= link_to 'Back', affairs_path, class: 'btn btn-secondary m-1' %>
+    </div>
 
   <% end %>
 </div>

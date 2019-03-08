@@ -20,8 +20,10 @@ class AssignmentsController < ApplicationController
     
     if @assignment.save
       redirect_to @assignment
+      flash[:notice] = "Assignment successfully created"
     else
       render 'new'
+      flash[:alert] = "Assignment could not be created"
     end
   end
 
@@ -30,16 +32,23 @@ class AssignmentsController < ApplicationController
 
     if @assignment.update(assignment_params)
       redirect_to @assignment
+      flash[:notice] = "Assignment successfully created"
     else
       render 'edit'
+      flash[:alert] = "Assignment could not be created"
     end
   end
 
   def destroy
     @assignment = Assignment.find(params[:id])
-    @assignment.destroy
-
-    redirect_to assignments_path
+    
+    if @assignment.destroy
+      redirect_to assignments_path
+      flash[:error] = "Assignment successfully destroyed"
+    else
+      render 'index'
+      flash[:alert] = "Assignment could not be destroyed"
+    end
   end
 
   private

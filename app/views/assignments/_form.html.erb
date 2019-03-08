@@ -1,4 +1,4 @@
-<div class="container w-25">
+<div class="container w-50">
   <%= form_with model: @assignment, local: true do |f| %>
     <% if @assignment.errors.any? %>
       <div id="error_explanation">
@@ -21,12 +21,14 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :assignment %><br>
+      <%= f.label :attorney %><br>
       <%= f.collection_select(:attorney_id, Attorney.all, :id, :full_name, {prompt: true}, {class: "form-control"}) %>
     </div>
 
-    <%= f.submit 'Submit', class: 'btn btn-success' %>
-    <%= link_to 'Back', assignments_path, class: 'btn btn-secondary btn-sm' %>
+    <div class="d-flex justify-content-end">
+      <%= f.submit 'Submit', class: 'btn btn-success m-1' %>
+      <%= link_to 'Back', affairs_path, class: 'btn btn-secondary m-1' %>
+    </div>
 
   <% end %>
 </div>

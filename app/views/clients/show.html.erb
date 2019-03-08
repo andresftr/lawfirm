@@ -26,10 +26,10 @@
   </div>
 </div>
 
+<% @affairs = Affair.all %>
 <div class="container m-3">
   <h3>Affairs of this client</h3>
 
-  <% @affairs = Affair.all %>
   <div class="list-group w-50">
     <% @affairs.each do |affair| %>
       <% if affair.client_id == @client.id %>

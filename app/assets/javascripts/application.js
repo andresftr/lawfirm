@@ -17,3 +17,25 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+
+var ready = function (params) {
+  console.log("Document Ready")
+  $("[data-form-prepend]").on("click",function(e) {
+    e.preventDefault();
+    var obj = $($(this).attr("data-form-prepend"));
+    obj.find("input, select, textarea").each(function() {
+      $(this).attr("name", function() {
+        return $(this)
+          .attr("name")
+          .replace("new_record", new Date().getTime());
+      });
+    });
+    obj.insertBefore(this);
+    return false;
+  });    
+}
+
+$(document).on('turbolinks:load', ready)
+
+
