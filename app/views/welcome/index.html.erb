@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <h1>Welcome <%= current_user.name %> to Law Firm App</h1>
-  <div class="accordion w-50" id="mainmenu">
+  <div class="accordion w-75" id="mainmenu">
     <div class="card">
       <div id="headingOne">
         <h5 class="mb-0">
@@ -60,8 +60,7 @@
 
       <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#mainmenu" >
         <div class="card-body">
-          <a class="btn btn-outline-info" href="/assignments" role="button">Go to assignments list</a>
-          <a class="btn btn-outline-info" href="/assignments/new" role="button">Create a new assignment</a>
+          <a class="btn btn-outline-info" href="/assignments" role="button">Go to assignments<%= render template: 'assignments/index' %></a>
         </div>
       </div>
     </div>
