@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# Attorney controller with the crud actions
 class AttorneysController < ApplicationController
   def index
-    @attorneys = Attorney.all
+    @attorneys = Attorney.paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -21,10 +24,10 @@ class AttorneysController < ApplicationController
 
     if @attorney.save
       redirect_to @attorney
-      flash[:notice] = "Attorney successfully created"
+      flash[:notice] = 'Attorney successfully created'
     else
       render 'new'
-      flash[:alert] = "Attorney could not be created"
+      flash[:alert] = 'Attorney could not be created'
     end
   end
 
@@ -33,30 +36,32 @@ class AttorneysController < ApplicationController
 
     if @attorney.update(attorney_params)
       redirect_to @attorney
-      flash[:notice] = "Attorney successfully created"
+      flash[:notice] = 'Attorney successfully created'
     else
       render 'edit'
-      flash[:alert] = "Attorney could not be created"
+      flash[:alert] = 'Attorney could not be created'
     end
   end
 
   def destroy
     @attorney = Attorney.find(params[:id])
-    
     if @attorney.destroy
       redirect_to attorneys_path
-      flash[:error] = "Attorney successfully destroyed"
+      flash[:error] = 'Attorney successfully destroyed'
     else
       render 'index'
-      flash[:alert] = "Attorney could not be destroyed"
+      flash[:alert] = 'Attorney could not be destroyed'
     end
   end
 
   private
-    def attorney_params
-      params.require(:attorney).permit(
-        :dni, :full_name, :address, :nacionality,
-        assignments_attributes: [ :id, :affair_id, :attorney_id, :_destroy ]
-        )
-    end
+
+  def attorney_params
+    params.require(:attorney)
+          .permit(:dni,
+                  :full_name,
+                  :address,
+                  :nacionality,
+                  assignments_attributes: %i[id affair_id attorney_id _destroy])
+  end
 end

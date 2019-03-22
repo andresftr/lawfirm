@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <h1>Welcome <%= current_user.name %> to Law Firm App</h1>
+  <h1>Welcome <%= current_user.name %> to AAA App</h1>
   <div class="accordion w-75" id="mainmenu">
     <div class="card">
       <div id="headingOne">
@@ -12,8 +12,9 @@
 
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#mainmenu" >
         <div class="card-body">
-          <a class="btn btn-outline-info" href="/clients" role="button">Go to clients list</a>
-          <a class="btn btn-outline-info" href="/clients/new" role="button">Create a new client</a>
+          <a class="btn btn-outline-info" href="/clients" role="button">Go to clients</a>
+          <%= render "clients/table" %>
+          <a class="btn btn-outline-info" href="/clients/new" role="button">New Client</a>
         </div>
       </div>
     </div>
@@ -28,8 +29,9 @@
 
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#mainmenu" >
         <div class="card-body">
-          <a class="btn btn-outline-info" href="/attorneys" role="button">Go to attorneys list</a>
-          <a class="btn btn-outline-info" href="/attorneys/new" role="button">Create a new attorney</a>
+          <a class="btn btn-outline-info" href="/attorneys" role="button">Go to attorneys</a>
+          <%= render 'attorneys/table' %>
+          <a class="btn btn-outline-info" href="/attorneys/new" role="button">New Attorney</a>
         </div>
       </div>
     </div>
@@ -44,8 +46,9 @@
 
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#mainmenu" >
         <div class="card-body">
-          <a class="btn btn-outline-info" href="/affairs" role="button">Go to affairs list</a>
-          <a class="btn btn-outline-info" href="/affairs/new" role="button">Create a new affair</a>
+          <a class="btn btn-outline-info" href="/affairs" role="button">Go to affairs</a>
+          <%= render 'affairs/table' %>
+          <a class="btn btn-outline-info" href="/affairs/new" role="button">New Affair</a>
         </div>
       </div>
     </div>
@@ -60,11 +63,13 @@
 
       <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#mainmenu" >
         <div class="card-body">
-          <a class="btn btn-outline-info" href="/assignments" role="button">Go to assignments<%= render template: 'assignments/index' %></a>
+          <a class="btn btn-outline-info" href="/assignments" role="button">Go to assignments</a>
+          <%= render 'assignments/table' %>
+          <a class="btn btn-outline-info" href="/assignments/new" role="button">New Assignment</a>
         </div>
       </div>
     </div>
   </div>
 <% else %>
-  <h1>Law Firm App</h1>
+  <h1>AAA App</h1>
 <% end %>

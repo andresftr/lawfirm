@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
+# Clients controller with the crud actions
 class ClientsController < ApplicationController
   def index
-    @clients = Client.all
+    @clients = Client.paginate(page: params[:page], per_page: 10)
   end
 
   def show
     @client = Client.find(params[:id])
   end
-  
+
   def new
     @client = Client.new
   end
@@ -20,10 +23,10 @@ class ClientsController < ApplicationController
 
     if @client.save
       redirect_to @client
-      flash[:notice] = "Client successfully created"
+      flash[:notice] = 'Client successfully created'
     else
       render 'new'
-      flash[:alert] = "Client could not be created"
+      flash[:alert] = 'Client could not be created'
     end
   end
 
@@ -32,10 +35,10 @@ class ClientsController < ApplicationController
 
     if @client.update(client_params)
       redirect_to @client
-      flash[:notice] = "Client successfully updated"
+      flash[:notice] = 'Client successfully updated'
     else
       render 'edit'
-      flash[:alert] = "Client could not be updated"
+      flash[:alert] = 'Client could not be updated'
     end
   end
 
@@ -44,15 +47,21 @@ class ClientsController < ApplicationController
 
     if @client.destroy
       redirect_to clients_path
-      flash[:error] = "Client successfully destroyed"
+      flash[:error] = 'Client successfully destroyed'
     else
       render 'index'
-      flash[:alert] = "Client could not be destroyed"
+      flash[:alert] = 'Client could not be destroyed'
     end
   end
 
   private
-    def client_params
-      params.require(:client).permit(:dni, :full_name, :address, :nacionality, :birthdate)
-    end
+
+  def client_params
+    params.require(:client)
+          .permit(:dni,
+                  :full_name,
+                  :address,
+                  :nacionality,
+                  :birthdate)
+  end
 end

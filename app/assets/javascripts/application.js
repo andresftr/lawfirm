@@ -20,7 +20,6 @@
 
 
 var ready = function (params) {
-  console.log("Document Ready")
   $("[data-form-prepend]").on("click",function(e) {
     e.preventDefault();
     var obj = $($(this).attr("data-form-prepend"));

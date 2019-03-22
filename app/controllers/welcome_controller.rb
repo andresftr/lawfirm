@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Welcome controller with index actions
 class WelcomeController < ApplicationController
   def index
     @clients = Client.all
