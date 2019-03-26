@@ -1,3 +1,5 @@
+Metrics/LineLength:
+  Max: 90
 AllCops:
   TargetRubyVersion: 2.5
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
@@ -9,3 +11,5 @@ AllCops:
     - 'node_modules/**/*'
     - 'spec/**/*'
     - 'config/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'

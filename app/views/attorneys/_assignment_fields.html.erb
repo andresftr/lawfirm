@@ -1,7 +1,7 @@
-<div class="card w-75 mb-3">
+<div class="assignment_fields card w-75 mb-3">
   <div class="card-body">
     <div class="form-group">
-      <%= f.label :affair %><br>
+      <%= f.label :assignment_affair %><br>
       <%= f.collection_select(:affair_id, Affair.all, :id, :file_number, {prompt: true}, {class: "form-control"}) %>
     </div>
 
@@ -9,5 +9,8 @@
       <%= f.check_box :_destroy, class: 'form-check-input' %>
       <%= f.label :delete, class: 'form-check-label' %>
     </div>
+
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_remove_fields 'Remove assignment', '.assignment_fields' %><br>
   </div>
 </div>

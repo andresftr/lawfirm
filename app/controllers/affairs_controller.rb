@@ -1,21 +1,8 @@
 # frozen_string_literal: true
 
+# Affair controller with CRUD actions' affair
 class AffairsController < ApplicationController
   def index
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
-    @affairs = Affair.paginate(page: params[:page], per_page: 10)
     @affairs = Affair.paginate(page: params[:page], per_page: 10)
   end
 

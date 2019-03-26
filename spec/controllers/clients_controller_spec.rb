@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ClientsController, type: :controller do
   describe '#index' do
-    context "as an authenticated user" do
+    context 'as an authenticated user' do
       before do
         @user = create(:user)
       end
@@ -69,42 +69,51 @@ RSpec.describe ClientsController, type: :controller do
       end
     end
 
-    context "as a guest" do
-      it "returns a 302 response" do
+    context 'as a guest' do
+      it 'returns a 302 response' do
         get :index
-        expect(response).to have_http_status "302"
+        expect(response).to have_http_status '302'
       end
 
-      it "redirects to the sign-in page" do
+      it 'redirects to the sign-in page' do
         get :index
-        expect(response).to redirect_to "/users/sign_in"
+        expect(response).to redirect_to '/users/sign_in'
       end
     end
   end
 
   describe '#show' do
     before do
-      @client = FactoryBot.create(:client)
+      @user = create(:user)
+      @client = create(:client)
     end
 
     it 'responds successfully' do
+      sign_in @user
       get :show, params: { id: @client.id }
       expect(response).to be_successful
     end
 
     it 'no show with a nonexistent client' do
+      sign_in @user
       expect { get :show, params: { id: 50 } }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   describe '#new' do
+    before do
+      @user = create(:user)
+    end
+
     it 'render the new template' do
+      sign_in @user
       get :new
       expect(response).to render_template(:new)
     end
 
     it 'assigns a new client' do
+      sign_in @user
       get :new
       expect(assigns(:client)).to be_a_new(Client)
     end
@@ -112,76 +121,145 @@ RSpec.describe ClientsController, type: :controller do
 
   describe '#edit' do
     before do
-      @client = FactoryBot.create(:client)
+      @user = create(:user)
+      @client = create(:client)
     end
 
     it 'render the edit template' do
+      sign_in @user
       get :edit, params: { id: @client.id }
       expect(response).to render_template(:edit)
     end
 
     it 'load client params in edit template' do
+      sign_in @user
       get :edit, params: { id: @client.id }
       expect(assigns(:client)).to eq(@client)
     end
 
     it 'no load with a nonexistent client' do
+      sign_in @user
       expect { get :edit, params: { id: 50 } }
         .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   describe '#create' do
-    context 'with valid attributes' do
-      it 'adds a client' do
-        client_params = FactoryBot.attributes_for(:client)
-        expect { post :create, params: { client: client_params } }
-          .to change(Client, :count).by(1)
+    context 'as an authenticated user' do
+      before do
+        @user = create(:user)
+      end
+
+      context 'with valid attributes' do
+        it 'adds a client' do
+          client_params = attributes_for(:client)
+          sign_in @user
+          expect { post :create, params: { client: client_params } }
+            .to change(Client, :count).by(1)
+        end
+      end
+  
+      context 'with invalid attributes' do
+        it 'does not add a client' do
+          client_params = attributes_for(:client, :invalid)
+          sign_in @user
+          expect { post :create, params: { client: client_params } }
+            .to_not change(Client, :count)
+        end
       end
     end
 
-    context 'with invalid attributes' do
-      it 'does not add a client' do
-        client_params = FactoryBot.attributes_for(:client, :invalid)
-        expect { post :create, params: { client: client_params } }
-          .to_not change(Client, :count)
+    context 'as a guest' do
+      it 'returns a 302 response' do
+        client_params = attributes_for(:client)
+        post :create, params: { client: client_params }
+        expect(response).to have_http_status '302'
+      end
+
+      it 'redirects to the sign-in page' do
+        client_params = attributes_for(:client)
+        post :create, params: { client: client_params }
+        expect(response).to redirect_to '/users/sign_in'
       end
     end
   end
 
   describe '#update' do
-    before do
-      @client = FactoryBot.create(:client)
+    context ' as an authenticated user' do
+      before do
+        @user = create(:user)
+        @client = create(:client)
+      end
+  
+      it 'updates a client' do
+        client_params = attributes_for(:client, full_name: 'New Client Name')
+        sign_in @user
+        patch :update, params: { id: @client.id, client: client_params }
+        expect(@client.reload.full_name).to eq 'New Client Name'
+      end
+  
+      it 'can not update a client' do
+        client_params = attributes_for(:client, :invalid)
+        sign_in @user
+        patch :update, params: { id: @client.id, client: client_params }
+        expect(@client.reload.full_name).to eq @client.full_name
+      end
     end
 
-    it 'updates a client' do
-      client_params = FactoryBot.attributes_for(:client,
-                                                full_name: 'New Client Name')
-      patch :update, params: { id: @client.id, client: client_params }
-      expect(@client.reload.full_name).to eq 'New Client Name'
-    end
+    context 'as a guest' do
+      before do
+        @client = create(:client)
+      end
 
-    it 'can not update a client' do
-      client_params = FactoryBot.attributes_for(:client, :invalid)
-      patch :update, params: { id: @client.id, client: client_params }
-      expect(@client.reload.full_name).to eq @client.full_name
+      it 'returns a 302 response' do
+        client_params = attributes_for(:client)
+        patch :update, params: { id: @client.id, client: client_params }
+        expect(response).to have_http_status '302'
+      end
+
+      it 'redirects to the sign-in page' do
+        client_params = attributes_for(:client)
+        patch :update, params: { id: @client.id, client: client_params }
+        expect(response).to redirect_to '/users/sign_in'
+      end
     end
   end
 
   describe '#destroy' do
-    before do
-      @client = FactoryBot.create(:client)
+    context 'as an authenticated user' do
+      before do
+        @user = create(:user)
+        @client = create(:client)
+      end
+  
+      it 'deletes a client' do
+        sign_in @user
+        expect { delete :destroy, params: { id: @client.id } }
+          .to change(Client, :count).by(-1)
+      end
+  
+      it 'does not delete a client' do
+        allow_any_instance_of(Client).to receive(:destroy).and_return(false)
+        sign_in @user
+        expect { delete :destroy, params: { id: @client.id } }
+          .to_not change(Client, :count)
+      end
     end
 
-    it 'deletes a client' do
-      expect { delete :destroy, params: { id: @client.id } }
-        .to change(Client, :count).by(-1)
-    end
+    context 'as a guest' do
+      before do
+        @client = create(:client)
+      end
+  
+      it 'returns a 302 response' do
+        delete :destroy, params: { id: @client.id }
+        expect(response).to have_http_status '302'
+      end
 
-    it 'can not delete a client' do
-      allow_any_instance_of(Client).to receive(:destroy).and_return(false)
-      expect { delete :destroy, params: { id: @client.id } }
-        .to_not change(Client, :count)
+      it 'redirects to the sign-in page' do
+        delete :destroy, params: { id: @client.id }
+        expect(response).to redirect_to "/users/sign_in"
+      end
     end
   end
 end
